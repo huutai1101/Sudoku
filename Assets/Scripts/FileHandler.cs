@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
 
 public class FileHandler : MonoBehaviour
 {
-    [SerializeField] string jsonPath;
+    //[SerializeField] string jsonPath; use for debug
     [SerializeField] string jsonName;
     private string filePath;
 
@@ -13,9 +12,11 @@ public class FileHandler : MonoBehaviour
     private void Awake()
     {
         data = new PlayerData();
-        //string filePath = Path.Combine(Application.persistentDataPath, "data.json");
         // Đường dẫn tới tệp JSON
-        filePath = Path.Combine(jsonPath, jsonName + ".json");
+        filePath = Path.Combine(Application.persistentDataPath, jsonName + ".json");
+        Debug.Log("filePath: " + filePath);
+        // Đường dẫn tới tệp JSON
+        //filePath = Path.Combine(jsonPath, jsonName + ".json"); use for debug
     }
 
     public void LoadFromJson()
@@ -37,7 +38,7 @@ public class FileHandler : MonoBehaviour
             data.stage = 1;
             data.playTime = 0;
             data.mistake = 0;
-            Debug.Log("Application.dataPath là: " + Application.dataPath);
+            //Debug.Log("Application.dataPath là: " + Application.dataPath);
             SaveToJson(data);
         }
     }

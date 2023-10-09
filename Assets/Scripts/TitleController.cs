@@ -2,10 +2,12 @@
 using UnityEngine.UI;
 using UnityEngine;
 using System;
-using UnityEditor;
 
 public class TitleController : MonoBehaviour
 {
+    [Header("How to play")]
+    [SerializeField] GameObject howToPlayObj;
+
     [Header("Continue")]
     [SerializeField] GameObject continueObj;
     [SerializeField] Text detailContinueText;
@@ -13,8 +15,6 @@ public class TitleController : MonoBehaviour
     [Header("Others")]
     [SerializeField] GameObject titleObj;
     [SerializeField] GameObject difficultyObj;
-
-    private bool isContinue;
 
     private void Start()
     {
@@ -51,7 +51,6 @@ public class TitleController : MonoBehaviour
     {
         titleObj.SetActive(false);
         difficultyObj.SetActive(true);
-        //SceneManager.LoadScene("Gameplay");
     }
 
     public void ContinueButton()
@@ -83,5 +82,10 @@ public class TitleController : MonoBehaviour
     {
         difficultyObj.SetActive(false);
         titleObj.SetActive(true);
+    }
+
+    public void HowToPlayButton(bool show)
+    {
+        howToPlayObj.SetActive(show);
     }
 }

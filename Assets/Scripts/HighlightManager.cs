@@ -1,14 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
 public class HighlightManager : MonoBehaviour
 {
-    //[SerializeField] Color availableNumberColor;
-    //[SerializeField] Color fillNumberColor;
-    //[SerializeField] Color iniAreaFillNumberColor;
     [Header("BG Color")]
     [SerializeField] private Color pressCellColor;
     [SerializeField] private Color wrongCellColor;
