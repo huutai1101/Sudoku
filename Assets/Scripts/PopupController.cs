@@ -1,17 +1,21 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PopupController : MonoBehaviour
 {
     [SerializeField] GameObject pauseObj;
     [SerializeField] GameObject gameoverObj;
     [SerializeField] GameObject winObj;
+    [SerializeField] GameObject mainObj;
 
     private void Start()
     {
         pauseObj.SetActive(false);
         gameoverObj.SetActive(false);
         winObj.SetActive(false);
+        mainObj.SetActive(false);
     }
 
     public void NewGameButton()
@@ -46,6 +50,18 @@ public class PopupController : MonoBehaviour
     {
         pauseObj.SetActive(false);
         GameManager.instance.ChangePauseStatus();
+    }
+
+    public void ShowMainPopup()
+    {
+        StartCoroutine(DisplayMainPopup());
+    }
+
+    private IEnumerator DisplayMainPopup()
+    {
+        mainObj.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        mainObj.SetActive(false);
     }
 
     public GameObject GetPauseObj()

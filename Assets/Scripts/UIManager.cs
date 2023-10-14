@@ -9,9 +9,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject board;
 
     //Scripts References
-    [SerializeField] HighlightManager highlightManager;
-    [SerializeField] TextManager textManager;
-    [SerializeField] PopupController popupCtrl;
+    private HighlightManager highlightManager;
+    private TextManager textManager;
+    private PopupController popupCtrl;
 
     //Variables References
     private int idChosing;
@@ -315,6 +315,15 @@ public class UIManager : MonoBehaviour
         SaveDataToJson();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause) 
+        {
+            SaveDataToJson();
+        }
+    }
+
     private void SaveDataToJson()
     {
         PlayerData data = new PlayerData();
@@ -342,12 +351,11 @@ public class UIManager : MonoBehaviour
     {
         if(!GameManager.instance.DoesPlayerChooseCell())
         {
-            Debug.Log("Xin hãy chọn ô để giải");
             return;
         }
         if (GameManager.instance.IsCorrect(idRow,idCol))
         {
-            Debug.Log("Ô này đã đúng, hãy chọn ô khác");
+            popupCtrl.ShowMainPopup();
             return;
         }
         UndoController.instance.SaveFirstAction(GameManager.instance.playerBoard[idRow, idCol].Value, idChosing, idRow, idCol, GameManager.instance.playerBoard[idRow, idCol].IsLock);

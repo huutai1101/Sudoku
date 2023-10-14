@@ -9,6 +9,7 @@ public class SolveSudoku : MonoBehaviour
         if (board == null || board.Length == 0)
             return;
         Solve(board);
+        DebugSolvedSudoku(board);
     }
     private bool Solve(int[,] board)
     {
@@ -51,5 +52,24 @@ public class SolveSudoku : MonoBehaviour
                 return false;
         }
         return true;
+    }
+
+    private void DebugSolvedSudoku(int[,] board)
+    {
+        string result = "";
+        for (int i = 0; i < board.GetLength(0); i++)
+        {
+            result += "Element " + i + ": [";
+            for (int j = 0; j < board.GetLength(1); j++)
+            {
+                result += board[i, j];
+                if (j + 1 < board.GetLength(1))
+                {
+                    result += ",";
+                }
+            }
+            result += "]\n";
+        }
+        Debug.Log(result);
     }
 }
