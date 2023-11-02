@@ -285,11 +285,11 @@ public class GameManager : MonoBehaviour
         this.pause = !this.pause;
         if(pause)
         {
-            Time.timeScale = 0;
+            Time.timeScale = 0f;
         }
         else
         {
-            Time.timeScale = 1;
+            Time.timeScale = 1f;
         }
     }
 }

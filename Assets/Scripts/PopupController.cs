@@ -23,6 +23,7 @@ public class PopupController : MonoBehaviour
         if(GameSettings.instance != null)
         {
             GameSettings.instance.stage += 1;
+            GameSettings.instance.isContinue = false;
         }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

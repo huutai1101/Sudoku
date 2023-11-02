@@ -33,11 +33,9 @@ public class UIManager : MonoBehaviour
         textManager.LoadMistakeTexts(GameManager.instance.Mistake,GameManager.instance.LimitMistake);
         textManager.LoadNoteModeText(GameManager.instance.NoteModeOn);
         LoadInitBoardUI(board.transform);
-        if (GameSettings.instance.isContinue)
-        {
-            LoadBoardUIFromJson(GameManager.instance.playerBoard, GameManager.instance.GetInitBoard(), GameManager.instance.GetSolvedBoard());
-            LoadNotesUIFromJson(GameSettings.instance.GetFileHandler().GetPlayerData());
-        }
+        LoadBoardAndNotesWhenContinue();
+        ShowWinUI(); //Kiem tra nguoi choi da win man do sau khi thoat game
+        ShowGameoverUI();//Kiem tra nguoi choi da game over man do sau khi thoat game
     }
 
     void Update()
@@ -190,19 +188,8 @@ public class UIManager : MonoBehaviour
         GameManager.instance.AddMistake(idRow, idCol);
         LoadUI(number);
         UndoController.instance.SaveAction(GameManager.instance.playerBoard[idRow, idCol].Value, idChosing, idRow, idCol, GameManager.instance.playerBoard[idRow, idCol].IsLock);
-        if(GameManager.instance.IsWin())
-        {
-            GameManager.instance.ChangePauseStatus();
-            popupCtrl.GetWinObj().SetActive(true);
-            return;
-        }
-        if(GameManager.instance.IsGameOver)
-        {
-            GameManager.instance.ChangePauseStatus();
-            textManager.SetGameoverNotice(GameManager.instance.Mistake);
-            popupCtrl.GetGameoverbj().SetActive(true);
-            return;
-        }
+        ShowWinUI();
+        ShowGameoverUI();
     }
     #endregion
 
@@ -442,4 +429,31 @@ public class UIManager : MonoBehaviour
         }
     }
     #endregion
+
+    private void LoadBoardAndNotesWhenContinue()
+    {
+        if (GameSettings.instance.isContinue)
+        {
+            LoadBoardUIFromJson(GameManager.instance.playerBoard, GameManager.instance.GetInitBoard(), GameManager.instance.GetSolvedBoard());
+            LoadNotesUIFromJson(GameSettings.instance.GetFileHandler().GetPlayerData());
+        }
+    }
+    private void ShowWinUI()
+    {
+        if (GameManager.instance.IsWin())
+        {
+            GameManager.instance.ChangePauseStatus();
+            popupCtrl.GetWinObj().SetActive(true);
+        }
+    }
+
+    private void ShowGameoverUI()
+    {
+        if (GameManager.instance.IsGameOver)
+        {
+            GameManager.instance.ChangePauseStatus();
+            textManager.SetGameoverNotice(GameManager.instance.Mistake);
+            popupCtrl.GetGameoverbj().SetActive(true);
+        }
+    }
 }
